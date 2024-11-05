@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Lead</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>Detalhes do Lead</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${lead.nome}"></h5>
+            <p><strong>Email:</strong> <span th:text="${lead.email}"></span></p>
+            <p><strong>Telefone:</strong> <span th:text="'(' + ${lead.telefone.substring(0, 2)} + ') ' + ${lead.telefone.substring(2, 7)} + '-' + ${lead.telefone.substring(7)}"></span></p>
+            <p><strong>Data de Interação:</strong> <span th:text="${#temporals.format(lead.dtInteracao, 'dd/MM/yyyy')}"></span></p>
+            <p><strong>Detalhes:</strong> <span th:text="${lead.interesse.descricao}"></span></p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a th:href="@{/lead/todos}" class="btn btn-primary">Voltar para a lista de leads</a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

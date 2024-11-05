@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<section class="hero is-fullheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="box" style="max-width: 400px; margin: auto;">
+                <h2 class="title">Login</h2>
+                <form th:action="@{/login}"  method="post">
+                    <div class="field">
+                        <label class="label" for="email">Email:</label>
+                        <div class="control">
+                            <input class="input" type="email" id="email" name="username" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label" for="senha">Senha:</label>
+                        <div class="control">
+                            <input class="input" type="password" id="senha" name="password" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-primary is-fullwidth" type="submit">Login</button>
+                        </div>
+                    </div>
+                    <div class="has-text-danger" th:if="${param.error}">
+                        <p>Usuário ou senha inválidos.</p>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

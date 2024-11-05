@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Cliente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="title">Adicionar Cliente</h1>
+
+    <form th:action="@{/cliente/adicionar}"  th:object="${clienteForm}" method="post">
+        <div class="field">
+            <label class="label" for="nome">Nome</label>
+            <div class="control">
+                <input type="text" class="input" id="nome" name="nome" th:field="*{nome}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="email">E-mail</label>
+            <div class="control">
+                <input type="email" class="input" id="email" name="email" th:field="*{email}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="telefone">Telefone</label>
+            <div class="control">
+                <input type="text" class="input" id="telefone" name="telefone" th:field="*{telefone}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="dtaCadastro">Data de Cadastro</label>
+            <div class="control">
+                <input type="date" class="input" id="dtaCadastro" name="dtaCadastro" th:field="*{dtaCadastro}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('dtaCadastro')}" th:errors="*{dtaCadastro}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="dtaNascimento">Data de Nascimento</label>
+            <div class="control">
+                <input type="date" class="input" id="dtaNascimento" name="dtaNascimento" th:field="*{dtaNascimento}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('dtaNascimento')}" th:errors="*{dtaNascimento}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="dtaUltimaInteracao">Data de Ultima Interação</label>
+            <div class="control">
+                <input type="date" class="input" id="dtaUltimaInteracao" name="dtaUltimaInteracao" th:field="*{dtaUltimaInteracao}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('dtaUltimaInteracao')}" th:errors="*{dtaUltimaInteracao}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="segmentoMercado">Segmento de Mercado</label>
+            <div class="control">
+                <input type="text" class="input" id="segmentoMercado" name="segmentoMercado" th:field="*{segmentoMercado}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('segmentoMercado')}" th:errors="*{segmentoMercado}"></p>
+        </div>
+
+        <h2 class="subtitle">Endereço</h2>
+
+        <div class="field">
+            <label class="label" for="cep">CEP</label>
+            <div class="control">
+                <input type="text" class="input" id="cep" name="endereco.cep" th:field="*{endereco.cep}" maxlength="9" required onblur="buscarEndereco()">
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('endereco.cep')}" th:errors="*{endereco.cep}" id="cep-error" style="display:none;"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="logradouro">Logradouro</label>
+            <div class="control">
+                <input type="text" class="input" id="logradouro" name="endereco.logradouro" th:field="*{endereco.logradouro}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('endereco.logradouro')}" th:errors="*{endereco.logradouro}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="numero">Número</label>
+            <div class="control">
+                <input type="text" class="input" id="numero" name="endereco.numero" th:field="*{endereco.numero}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('endereco.numero')}" th:errors="*{endereco.numero}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="complemento">Complemento</label>
+            <div class="control">
+                <input type="text" class="input" id="complemento" name="endereco.complemento">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label" for="bairro">Bairro</label>
+            <div class="control">
+                <input type="text" class="input" id="bairro" name="endereco.bairro" th:field="*{endereco.bairro}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('endereco.bairro')}" th:errors="*{endereco.bairro}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="cidade">Cidade</label>
+            <div class="control">
+                <input type="text" class="input" id="cidade" name="endereco.cidade" th:field="*{endereco.cidade}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('endereco.cidade')}" th:errors="*{endereco.cidade}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="estado">Estado</label>
+            <div class="control">
+                <input type="text" class="input" id="estado" name="endereco.estado" th:field="*{endereco.estado}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('endereco.estado')}" th:errors="*{endereco.estado}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label">Tipo de Endereço</label>
+            <div class="control">
+                <div class="select">
+                    <select th:field="${clienteForm.endereco.tipo}">
+                        <option value="" disabled selected>Selecione o tipo</option>
+                        <option th:each="tipo : ${tiposDeEndereco}" th:value="${tipo}" th:text="${tipo}"></option>
+                    </select>
+                </div>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('endereco.tipo')}" th:errors="*{endereco.tipo}"></p>
+        </div>
+
+        <h2 class="subtitle">Interesse</h2>
+
+        <div class="field">
+            <label class="label" for="descricao">Descrição</label>
+            <div class="control">
+                <input type="text" class="input" id="descricao" name="interesse.descricao" th:field="*{interesse.descricao}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('interesse.descricao')}" th:errors="*{interesse.descricao}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="dtaInteracao">Data de Interação</label>
+            <div class="control">
+                <input type="date" class="input" id="dtaInteracao" name="interesse.dtaInteracao" th:field="*{interesse.dtaInteracao}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('interesse.dtaInteracao')}" th:errors="*{interesse.dtaInteracao}"></p>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button type="submit" class="button is-primary">Adicionar</button>
+                <a th:href="@{/dashboard}" class="button is-light">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('cep').addEventListener('blur', function () {
+        var cep = this.value.replace(/\D/g, '');
+
+        if (cep.length === 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.erro) {
+                        document.getElementById('logradouro').value = data.logradouro;
+                        document.getElementById('bairro').value = data.bairro;
+                        document.getElementById('cidade').value = data.localidade;
+                        document.getElementById('estado').value = data.uf;
+
+                        errorElement.style.display = 'none';
+                        errorElement.textContent = '';
+                    } else {
+                        errorElement.style.display = 'block';
+                        errorElement.textContent = 'CEP não encontrado.';
+                    }
+                })
+                .catch(() => {
+                    errorElement.style.display = 'block';
+                    errorElement.textContent = 'Erro ao buscar o CEP.';
+                });
+        } else {
+            errorElement.style.display = 'block';
+            errorElement.textContent = 'Formato de CEP inválido.';
+        }
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/js/bulma.min.js"></script>
+</body>
+</html>

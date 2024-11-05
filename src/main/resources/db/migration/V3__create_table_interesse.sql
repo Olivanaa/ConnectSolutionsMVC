@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS interesse (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(500) NOT NULL,
+    dtInteracao DATE NOT NULL
+
+);

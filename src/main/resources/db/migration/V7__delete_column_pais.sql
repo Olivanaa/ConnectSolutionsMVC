@@ -1,0 +1,2 @@
+ALTER TABLE endereco
+DROP COLUMN pais;

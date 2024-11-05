@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Lead</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="title">Adicionar Lead</h1>
+
+    <form th:action="@{/lead/adicionar}" th:object="${leadForm}" method="post">
+        <div class="field">
+            <label class="label" for="nome">Nome</label>
+            <div class="control">
+                <input type="text" class="input" id="nome" name="nome" th:field="*{nome}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="email">E-mail</label>
+            <div class="control">
+                <input type="email" class="input" id="email" name="email" th:field="*{email}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="telefone">Telefone</label>
+            <div class="control">
+                <input type="text" class="input" id="telefone" name="telefone" th:field="*{telefone}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="dtInteracao">Data de Interação</label>
+            <div class="control">
+                <input type="date" class="input" id="dtInteracao" name="dtInteracao" th:field="*{dtInteracao}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('dtInteracao')}" th:errors="*{dtInteracao}"></p>
+        </div>
+
+        <h2 class="subtitle">Interesse</h2>
+
+        <div class="field">
+            <label class="label" for="descricao">Descrição</label>
+            <div class="control">
+                <input type="text" class="input" id="descricao" name="interesse.descricao" th:field="*{interesse.descricao}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('interesse.descricao')}" th:errors="*{interesse.descricao}"></p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="dtaInteracao">Data de Interação</label>
+            <div class="control">
+                <input type="date" class="input" id="dtaInteracao" name="interesse.dtaInteracao" th:field="*{interesse.dtaInteracao}" required>
+            </div>
+            <p class="help is-danger" th:if="${#fields.hasErrors('interesse.dtaInteracao')}" th:errors="*{interesse.dtaInteracao}"></p>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button type="submit" class="button is-primary">Adicionar</button>
+                <a th:href="@{/dashboard}" class="button is-light">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/js/bulma.min.js"></script>
+</body>
+</html>

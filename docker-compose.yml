@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+
+
+  oracle-db:
+    image: gvenzl/oracle-xe:latest
+    container_name: oracle-db
+    environment:
+      - ORACLE_RANDOM_PASSWORD=yes
+      - ORACLE_ALLOW_REMOTE=true
+    ports:
+      - "1521:1521"
+      - "8080:8080"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+
+volumes:
+  oracle_data:

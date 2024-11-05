@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Inicial</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="title">Bem-vindo ao AIConnect</h1>
+  <h2 class="subtitle">Gerenciando interações com clientes e leads</h2>
+
+  <div class="box">
+    <h3 class="subtitle">Sobre a Aplicação</h3>
+    <p>
+      O AIConnect é uma plataforma desenvolvida para simplificar o gerenciamento de interações entre clientes e leads.
+      Oferecemos uma interface intuitiva que permite a equipes de vendas e marketing acompanhar e armazenar informações cruciais sobre seus clientes.
+    </p>
+    <p>
+      Com recursos como envio automatizado de mensagens, gestão de interações e análise de feedback, nossa aplicação visa otimizar o relacionamento com seus clientes,
+      ajudando sua empresa a crescer de forma eficaz.
+    </p>
+  </div>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <a href = "#" class="button is-primary">Login</a>
+    </div>
+    <div class="control">
+      <a th:href="@{/dashboard}" class="button is-info">Acessar Dashboard</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/js/bulma.min.js"></script>
+</body>
+</html>

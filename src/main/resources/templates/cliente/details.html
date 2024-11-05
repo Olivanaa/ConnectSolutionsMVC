@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Cliente</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>Detalhes do Cliente</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${cliente.nome}"></h5>
+            <p><strong>Email:</strong> <span th:text="${cliente.email}"></span></p>
+            <p><strong>Telefone:</strong> <span th:text="'(' + ${cliente.telefone.substring(0, 2)} + ') ' + ${cliente.telefone.substring(2, 7)} + '-' + ${cliente.telefone.substring(7)}"></span></p>
+            <p><strong>Data de Nascimento:</strong> <span th:text="${#temporals.format(cliente.dtaNascimento, 'dd/MM/yyyy')}"></span></p>
+            <p><strong>Data de Cadastro:</strong> <span th:text="${#temporals.format(cliente.dtaCadastro, 'dd/MM/yyyy')}"></span></p>
+            <p><strong>Data da Última Interação:</strong> <span th:text="${#temporals.format(cliente.dtaUltimaInteracao, 'dd/MM/yyyy')}"></span></p>
+            <p><strong>Segmento de Mercado:</strong> <span th:text="${cliente.segmentoMercado}"></span></p>
+            <p><strong>Interesse:</strong> <span th:text="${cliente.interesse.descricao}"></span></p>
+            <p><strong>Estado:</strong> <span th:text="${cliente.endereco.estado}"></span></p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a th:href="@{/cliente/todos}" class="btn btn-primary">Voltar para a lista de clientes</a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

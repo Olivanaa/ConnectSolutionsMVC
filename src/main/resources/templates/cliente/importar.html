@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importar Clientes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <style>
+        /* Estilo para o overlay de loading */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none; /* Esconde inicialmente */
+        }
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 6px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="title">Importar Clientes</h1>
+
+    <form th:action="@{/cliente/importar}" method="post" enctype="multipart/form-data" onsubmit="mostrarLoading()">
+        <div class="field">
+            <label class="label" for="arquivoExcel">Arquivo Excel</label>
+            <div class="control">
+                <input type="file" class="input" id="arquivoExcel" name="arquivoExcel" accept=".xlsx, .xls" required>
+            </div>
+            <p class="help">Selecione um arquivo Excel (.xlsx, .xls) para importar clientes.</p>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button type="submit" class="button is-success">Importar Clientes</button>
+                <a th:href="@{/dashboard}" class="button is-light">Cancelar</a>
+            </div>
+        </div>
+    </form>
+    <div class="box">
+        <h2 class="subtitle">Instruções de Importação</h2>
+        <p>A ordem das colunas no arquivo Excel deve ser a seguinte:</p>
+        <table class="table is-striped is-fullwidth">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Campo</th>
+                <th>Descrição</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Nome</td>
+                <td>Nome completo do cliente (Texto)</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Email</td>
+                <td>Endereço de e-mail válido (Texto)</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Telefone</td>
+                <td>Número de telefone com DDD (Somente números)</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Data de Nascimento</td>
+                <td>Data no formato dd/MM/yyyy (Exemplo: 25/12/1990)</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Data de Cadastro</td>
+                <td>Data no formato dd/MM/yyyy (Exemplo: 01/01/2022)</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Segmento de Mercado</td>
+                <td>Segmento em que o cliente atua (Texto)</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Data da Última Interação</td>
+                <td>Data no formato dd/MM/yyyy (Exemplo: 10/10/2023)</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>CEP</td>
+                <td>CEP do endereço (Somente números)</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Logradouro</td>
+                <td>Nome da rua ou avenida (Texto)</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Número</td>
+                <td>Número da residência (Texto)</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Complemento</td>
+                <td>Complemento do endereço (Texto)</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Cidade</td>
+                <td>Cidade do endereço (Texto)</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Estado</td>
+                <td>Estado do endereço (Texto, sigla)</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Bairro</td>
+                <td>Bairro do endereço (Texto)</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>Tipo de Endereço</td>
+                <td>Tipo do endereço (Texto, Ex: RESIDENCIAL ou COMERCIAL)</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>Descrição do Interesse</td>
+                <td>Descrição do interesse do cliente (Texto)</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>Data da Interação</td>
+                <td>Data da última interação com o cliente (Formato dd/MM/yyyy)</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>Certifique-se de que os dados no arquivo Excel estejam de acordo com esta ordem para garantir uma importação bem-sucedida.</p>
+    </div>
+
+    <div th:if="${errosImportacao != null}">
+        <h2 class="subtitle">Erros de Importação</h2>
+        <ul>
+            <li th:each="erro : ${errosImportacao}" th:text="'Linha ' + ${erro.rowIndex} + ': ' + ${erro.errorMessage}"></li>
+        </ul>
+    </div>
+
+    <div th:if="${mensagemSucesso}" class="notification is-success">
+        <p th:text="${mensagemSucesso}"></p>
+    </div>
+    <div th:if="${mensagemErro}" class="notification is-danger">
+        <p th:text="${mensagemErro}"></p>
+    </div>
+</div>
+<div id="loading-overlay">
+    <div class="loader"></div>
+</div>
+
+<script>
+    function mostrarLoading() {
+        document.getElementById('loading-overlay').style.display = 'flex';
+    }
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/js/bulma.min.js"></script>
+</body>
+</html>
