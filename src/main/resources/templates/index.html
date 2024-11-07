@@ -4,13 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Página Inicial</title>
+  <!-- Bulma CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <!-- Seu CSS personalizado -->
+  <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-<div class="container mt-5">
-  <h1 class="title">Bem-vindo ao AIConnect</h1>
-  <h2 class="subtitle">Gerenciando interações com clientes e leads</h2>
 
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item">AIConnect</a>
+
+  </div>
+
+  <div id="navbarMenu" class="navbar-menu">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-custom-signup">
+            <strong>Login</strong>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero has-text-centered">
+  <div class="container">
+    <h1 class="title">Bem-vindo ao AIConnect</h1>
+    <h2 class="subtitle">Gerenciando interações com clientes e leads</h2>
+    <div class="field is-grouped">
+      <div class="control">
+        <a th:href="@{/dashboard}" class="button is-info">Acessar Dashboard</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container mt-5">
   <div class="box">
     <h3 class="subtitle">Sobre a Aplicação</h3>
     <p>
@@ -22,17 +54,11 @@
       ajudando sua empresa a crescer de forma eficaz.
     </p>
   </div>
-
-  <div class="field is-grouped">
-    <div class="control">
-      <a href = "#" class="button is-primary">Login</a>
-    </div>
-    <div class="control">
-      <a th:href="@{/dashboard}" class="button is-info">Acessar Dashboard</a>
-    </div>
-  </div>
 </div>
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/js/bulma.min.js"></script>
+
+
 </body>
 </html>

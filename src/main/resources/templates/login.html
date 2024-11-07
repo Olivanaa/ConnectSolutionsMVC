@@ -2,25 +2,18 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-    <style>
-        body {
-            background-color: #f4f4f4;
-        }
-        .error-message {
-            color: red;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
+
 <section class="hero is-fullheight">
     <div class="hero-body">
         <div class="container has-text-centered">
             <div class="box" style="max-width: 400px; margin: auto;">
                 <h2 class="title">Login</h2>
-                <form th:action="@{/login}"  method="post">
+                <form th:action="@{/login}" method="post">
                     <div class="field">
                         <label class="label" for="email">Email:</label>
                         <div class="control">
@@ -37,17 +30,19 @@
 
                     <div class="field">
                         <div class="control">
-                            <button class="button is-primary is-fullwidth" type="submit">Login</button>
+                            <button class="button is-primary" type="submit">Login</button>
                         </div>
                     </div>
+
                     <div class="has-text-danger" th:if="${param.error}">
                         <p>Usuário ou senha inválidos.</p>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
 </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/js/bulma.min.js"></script>
 </body>
 </html>

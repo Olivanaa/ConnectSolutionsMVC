@@ -2,21 +2,44 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 <body>
-<div class="container mt-5">
+<nav class="navbar is-dark">
+    <div class="navbar-brand">
+        <a class="navbar-item">Dashboard</a>
+        <button class="navbar-burger burger" data-target="navbarMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+            <a class="navbar-item" th:href="@{/}">Home</a>
+            <a class="navbar-item" th:href="@{/cliente/todos}">Clientes</a>
+            <a class="navbar-item" th:href="@{/lead/todos}">Leads</a>
+            <a class="navbar-item" th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
     <h1>Dashboard</h1>
 
+    <!-- Botões para adicionar clientes e leads -->
     <div class="mb-4">
         <a th:href="@{/cliente/adicionar}" class="btn btn-primary">Adicionar Cliente</a>
         <a th:href="@{/cliente/importar}" class="btn btn-primary">Importar Clientes</a>
         <a th:href="@{/lead/adicionar}" class="btn btn-secondary">Adicionar Lead</a>
     </div>
 
+    <!-- Tabela de Clientes -->
     <h2>Clientes</h2>
-    <table class="table table-bordered">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Nome</th>
@@ -31,16 +54,18 @@
             <td th:text="'(' + ${cliente.telefone.substring(0, 2)} + ') ' + ${cliente.telefone.substring(2, 7)} + '-' + ${cliente.telefone.substring(7)}"></td>
         </tr>
         <tr th:if="${#lists.isEmpty(clientes)}">
-            <td colspan="6">Nenhum cliente encontrado.</td>
+            <td colspan="3" class="text-center">Nenhum cliente encontrado.</td>
         </tr>
         </tbody>
     </table>
+
     <div class="mb-3">
         <a th:href="@{/cliente/todos}" class="btn btn-info">Carregar Todos os Clientes</a>
     </div>
 
+    <!-- Tabela de Leads -->
     <h2>Leads</h2>
-    <table class="table table-bordered">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Nome</th>
@@ -55,10 +80,11 @@
             <td th:text="'(' + ${lead.telefone.substring(0, 2)} + ') ' + ${lead.telefone.substring(2, 7)} + '-' + ${lead.telefone.substring(7)}"></td>
         </tr>
         <tr th:if="${#lists.isEmpty(leads)}">
-            <td colspan="5">Nenhum lead encontrado.</td>
+            <td colspan="3" class="text-center">Nenhum lead encontrado.</td>
         </tr>
         </tbody>
     </table>
+
     <div class="mb-3">
         <a th:href="@{/lead/todos}" class="btn btn-info">Carregar Todos os Leads</a>
     </div>

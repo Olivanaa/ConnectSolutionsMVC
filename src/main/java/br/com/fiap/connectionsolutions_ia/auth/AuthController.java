@@ -19,9 +19,12 @@ public class AuthController {
         return "login";
     }
 
-//    @GetMapping("/dashboard")
-//    public String showDashboard() {
-//        return "dashboard";
-//    }
+    @GetMapping("/logout")
+    public String logout(){
+        return "logout";
+    }
+
+
+
 }
 

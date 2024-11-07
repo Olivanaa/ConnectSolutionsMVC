@@ -9,25 +9,25 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-//@Service
-//public class CustomDetailsService implements UserDetailsService {
-//
-//    @Autowired
-//    private UsuarioRepository usuarioRepository;
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        System.out.println("Procurando por usuário com email: " + username);
-//        Usuario user = usuarioRepository.findByEmail(username)
-//                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
-//
-//        System.out.println("Usuário encontrado: " + user.getEmail() + " com role: " + user.getRole());
-//        return User.builder()
-//                .username(user.getEmail())
-//                .password(user.getSenha())
-//                .roles(user.getRole())
-//                .build();
-//    }
-//
-//
-//}
+@Service
+public class CustomDetailsService implements UserDetailsService {
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("Procurando por usuário com email: " + username);
+        Usuario user = usuarioRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+
+        System.out.println("Usuário encontrado: " + user.getEmail() + " com role: " + user.getRole());
+        return User.builder()
+                .username(user.getEmail())
+                .password(user.getSenha())
+                .roles(user.getRole())
+                .build();
+    }
+
+
+}

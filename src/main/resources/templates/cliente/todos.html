@@ -4,50 +4,53 @@
     <meta charset="UTF-8">
     <title>Clientes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/clienteTodos.css">
 </head>
 <body>
 
-<div class="container mt-5">
-    <h1>Lista de Clientes</h1>
+<div class="container">
+    <div class="table-container">
+        <h1>Lista de Clientes</h1>
+        <a th:href="@{/dashboard}" class="btn btn-light btn-sm">Voltar</a>
 
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>Data de Nascimento</th>
-            <th>Data de Cadastro</th>
-            <th>Data da Última Interação</th>
-            <th>Segmento de Mercado</th>
-            <th>Interesse</th>
-            <th>Estado</th>
-            <th>Ações</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="cliente : ${clientes}">
-            <td th:text="${cliente.nome}"></td>
-            <td th:text="${cliente.email}"></td>
-            <td th:text="'(' + ${cliente.telefone.substring(0, 2)} + ') ' + ${cliente.telefone.substring(2, 7)} + '-' + ${cliente.telefone.substring(7)}"></td>
-            <td th:text="${#temporals.format(cliente.dtaNascimento, 'dd/MM/yyyy')}"></td>
-            <td th:text="${#temporals.format(cliente.dtaCadastro, 'dd/MM/yyyy')}"></td>
-            <td th:text="${#temporals.format(cliente.dtaUltimaInteracao, 'dd/MM/yyyy')}"></td>
-            <td th:text="${cliente.segmentoMercado}"></td>
-            <td th:text="${cliente.interesse.descricao}"></td>
-            <td th:text="${cliente.endereco.estado}"></td>
-            <td>
-
-                <a th:href="@{details/{id}(id=${cliente.id})}" class="btn btn-info btn-sm">Detalhes</a>
-            </td>
-        </tr>
-        <tr th:if="${#lists.isEmpty(clientes)}">
-            <td colspan="10" class="text-center">Nenhum cliente encontrado.</td>
-        </tr>
-        </tbody>
-    </table>
-
-    <a th:href="@{/dashboard}" class="btn btn-light">Voltar</a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Data de Nascimento</th>
+                    <th>Data de Cadastro</th>
+                    <th>Data da Última Interação</th>
+                    <th>Segmento de Mercado</th>
+                    <th>Interesse</th>
+                    <th>Estado</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.nome}"></td>
+                    <td th:text="${cliente.email}"></td>
+                    <td th:class="telefone" th:text="'(' + ${cliente.telefone.substring(0, 2)} + ') ' + ${cliente.telefone.substring(2, 7)} + '-' + ${cliente.telefone.substring(7)}"></td>
+                    <td th:text="${#temporals.format(cliente.dtaNascimento, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${#temporals.format(cliente.dtaCadastro, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${#temporals.format(cliente.dtaUltimaInteracao, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${cliente.segmentoMercado}"></td>
+                    <td th:text="${cliente.interesse.descricao}"></td>
+                    <td th:text="${cliente.endereco.estado}"></td>
+                    <td>
+                        <a th:href="@{details/{id}(id=${cliente.id})}" class="btn btn-info btn-sm">Detalhes</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(clientes)}">
+                    <td colspan="10" class="text-center no-data">Nenhum cliente encontrado.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

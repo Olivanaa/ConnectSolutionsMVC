@@ -4,41 +4,109 @@
     <meta charset="UTF-8">
     <title>Leads</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .table thead {
+            background-color: #6a11cb;
+            color: white;
+        }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        .btn-info {
+            background-color: #6a11cb;
+            border-color: #6a11cb;
+        }
+
+        .btn-info:hover {
+            background-color: #2575fc;
+            border-color: #2575fc;
+        }
+
+        .btn-light {
+            background-color: #f8f9fa;
+            border-color: #f8f9fa;
+        }
+
+        .btn-light:hover {
+            background-color: #e2e6ea;
+            border-color: #e2e6ea;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .no-data {
+            font-style: italic;
+            color: #777;
+        }
+
+        .table-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container mt-5">
-    <h1>Lista de Leads</h1>
+<div class="container">
+    <div class="table-container">
+        <h1>Lista de Leads</h1>
+        <a th:href="@{/dashboard}" class="btn btn-light btn-sm">Voltar</a>
 
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>Data de Interação</th>
-            <th>Interesse</th>
-            <th>Ações</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="lead : ${leads}">
-            <td th:text="${lead.nome}"></td>
-            <td th:text="${lead.email}"></td>
-            <td th:text="'(' + ${lead.telefone.substring(0, 2)} + ') ' + ${lead.telefone.substring(2, 7)} + '-' + ${lead.telefone.substring(7)}"></td>
-            <td th:text="${#temporals.format(lead.dtInteracao, 'dd/MM/yyyy')}"></td>
-            <td th:text="${lead.interesse.descricao}"></td>
-            <td>
-
-                <a th:href="@{details/{id}(id=${lead.id})}" class="btn btn-info btn-sm">Detalhes</a>
-            </td>
-        </tr>
-        <tr th:if="${#lists.isEmpty(leads)}">
-            <td colspan="5" class="text-center">Nenhum lead encontrado.</td>
-        </tr>
-        </tbody>
-    </table>
-    <a th:href="@{/dashboard}" class="btn btn-light">Voltar</a>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Data de Interação</th>
+                <th>Interesse</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="lead : ${leads}">
+                <td th:text="${lead.nome}"></td>
+                <td th:text="${lead.email}"></td>
+                <td th:text="'(' + ${lead.telefone.substring(0, 2)} + ') ' + ${lead.telefone.substring(2, 7)} + '-' + ${lead.telefone.substring(7)}"></td>
+                <td th:text="${#temporals.format(lead.dtInteracao, 'dd/MM/yyyy')}"></td>
+                <td th:text="${lead.interesse.descricao}"></td>
+                <td>
+                    <a th:href="@{details/{id}(id=${lead.id})}" class="btn btn-info btn-sm">Detalhes</a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(leads)}">
+                <td colspan="6" class="text-center no-data">Nenhum lead encontrado.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
