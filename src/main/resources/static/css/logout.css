@@ -1,0 +1,72 @@
+/* logout.css */
+body {
+    background-color: #f7f7f7;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.hero {
+    background: linear-gradient(145deg, #6a11cb, #2575fc);
+    height: 100vh;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-body {
+    padding: 2rem;
+}
+
+.message-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    text-align: center;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 1.5rem;
+}
+
+p {
+    color: #555555;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.button {
+    border-radius: 5px;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button.is-primary {
+    background-color: #6a11cb;
+    color: #fff;
+    border: none;
+}
+
+.button.is-primary:hover {
+    background-color: #2575fc;
+}
+
+@media (max-width: 768px) {
+    .message-box {
+        padding: 1.5rem;
+        width: 100%;
+        max-width: 360px;
+    }
+}
